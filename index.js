@@ -19,10 +19,15 @@ const LocalStrategy = passport_local.Strategy
 const app = express()
 const PORT = process.env.PORT || 5000;
 
+app.set("trust proxy", 1)
+
 app.use(cookieSession({
     name: 'timetable-auth',
     keys: ['secret-new', 'secret-old'],
-    maxAge: 60 * 60 * 24 * 7
+    maxAge: 60 * 60 * 24 * 7,
+    secure: true,
+    sameSite: 'none',
+    httpOnly: true
 }))
 
 app.use(
